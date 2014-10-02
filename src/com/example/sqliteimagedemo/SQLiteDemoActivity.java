@@ -12,50 +12,50 @@ import android.util.Log;
 import android.widget.ListView;
 
 public class SQLiteDemoActivity extends Activity {
-ArrayList<Contact> imageArry = new ArrayList<Contact>();
-ContactImageAdapter adapter;
+	ArrayList<Contact> imageArry = new ArrayList<Contact>();
+	ContactImageAdapter adapter;
 
-/** Called when the activity is first created. */
-@Override
-public void onCreate(Bundle savedInstanceState) {
-super.onCreate(savedInstanceState);
-setContentView(R.layout.main);
+	/** Called when the activity is first created. */
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.main);
 
 
-DataBaseHandler db = new DataBaseHandler(this);
-// get image from drawable
-Bitmap image = BitmapFactory.decodeResource(getResources(),
-R.drawable.facebook);
+		DataBaseHandler db = new DataBaseHandler(this);
+		// get image from drawable
+		Bitmap image = BitmapFactory.decodeResource(getResources(),
+				R.drawable.facebook);
 
-// convert bitmap to byte
-ByteArrayOutputStream stream = new ByteArrayOutputStream();
-image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-byte imageInByte[] = stream.toByteArray();
-/**
-* CRUD Operations
-* */
-// Inserting Contacts
-Log.d("Insert: ", "Inserting ..");
-db.addContact(new Contact("GeekOnJava", imageInByte));
-// display main List view bcard and contact name
+		// convert bitmap to byte
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+		byte imageInByte[] = stream.toByteArray();
+		/**
+		 * CRUD Operations
+		 * */
+		// Inserting Contacts
+		Log.d("Insert: ", "Inserting ..");
+		db.addContact(new Contact("GeekOnJava", imageInByte));
+		// display main List view bcard and contact name
 
-// Reading all contacts from database
-List<Contact> contacts = db.getAllContacts();
-for (Contact cn : contacts) {
-String log = "ID:" + cn.getID() + " Name: " + cn.getName()
-+ " ,Image: " + cn.getImage();
+		// Reading all contacts from database
+		List<Contact> contacts = db.getAllContacts();
+		for (Contact cn : contacts) {
+			String log = "ID:" + cn.getID() + " Name: " + cn.getName()
+					+ " ,Image: " + cn.getImage();
 
-// Writing Contacts to log
-Log.d("Result: ", log);
-//add contacts data in arrayList
-imageArry.add(cn);
+			// Writing Contacts to log
+			Log.d("Result: ", log);
+			//add contacts data in arrayList
+			imageArry.add(cn);
 
-}
-adapter = new ContactImageAdapter(this, R.layout.screen_list,
-imageArry);
-ListView dataList = (ListView) findViewById(R.id.list);
-dataList.setAdapter(adapter);
-}
+		}
+		adapter = new ContactImageAdapter(this, R.layout.screen_list,
+				imageArry);
+		ListView dataList = (ListView) findViewById(R.id.list);
+		dataList.setAdapter(adapter);
+	}
 }
 
 
